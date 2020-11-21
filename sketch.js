@@ -1,91 +1,83 @@
-//namespace
+
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Constraint = Matter.Constraint;
+const Constraint = Matter.Constraint 
 
 var engine, world;
-var box1, pig1;
-var backgroundImg,platform;
-var bird, slingShot;
+var ground; 
 
-function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+var ground, stand1, stand2;
+
+function preload(){
+  polygonImage = loadImage("polygon.png");
 }
 
-function setup(){
-    var canvas = createCanvas(1200,400);
-    engine = Engine.create();
-    world = engine.world;
+function setup() {
+  createCanvas(1000,700);
+ 
+  engine = Engine.create();
+  world = engine.world;
+ 
+  ground=new Ground(width/2,height,width,20) 
 
+  stand1 = new Ground(500,500,350,15);
+ 
+  block2=new Box(400,470)
+  block3=new Box(450,470)
+  block4=new Box(500,470)
+  block5=new Box(550,470)
+  block6=new Box(600,470)
+ 
+  block9=new Box(450,420)
+  block10=new Box(500,420)
+  block11=new Box(550,420)
 
-    ground = new Ground(600,height,1200,20);
-    platform = new Ground(150, 305, 300, 170);
+  block12=new Box(500,370)
 
-    box1 = new Box(700,320,70,70);
-    box2 = new Box(920,320,70,70);
-    pig1 = new Pig(810, 350);
-    log1 = new Log(810,260,300, PI/2);
+  polygon = Bodies.circle(50,200,40);
+  World.add(world,polygon);
 
-    box3 = new Box(700,240,70,70);
-    box4 = new Box(920,240,70,70);
-    pig3 = new Pig(810, 220);
+  slingshot = new SlingShot(polygon,{x:250,y:300})
+  
+}
+function draw() {
+  background(220);  
+  
+  ground.display()
 
-    log3 =  new Log(810,180,300, PI/2);
+  stand1.display()
+  
+  fill("red")
+  block2.display()
+  block3.display()
+  block4.display()
+  block5.display()
+  block6.display()
+  fill("blue")
+  block9.display()
+  block10.display()
+  block11.display()
+  fill("yellow")
+  block12.display()
+  slingshot.display()
 
-    box5 = new Box(810,160,70,70);
-    log4 = new Log(760,120,150, PI/7);
-    log5 = new Log(870,120,150, -PI/7);
+  imageMode(CENTER)
+  image(polygonImage,polygon.position.x, polygon.position.y, 60,60)
 
-    bird = new Bird(200,50);
-
-    //log6 = new Log(230,180,80, PI/2);
-    slingshot = new SlingShot(bird.body,{x:200, y:55});
 }
 
-function draw(){
-    background(backgroundImg);
-    Engine.update(engine);
-    strokeWeight(4);
-    box1.display();
-    box2.display();
-    ground.display();
-    pig1.display();
-    log1.display();
-
-    box3.display();
-    box4.display();
-    pig3.display();
-    log3.display();
-
-    box5.display();
-    log4.display();
-    log5.display();
-
-    bird.display();
-    platform.display();
-    //log6.display();
-    slingshot.display();    
+function keyPressed(){
+	if(keyCode === 32){
+    Matter.Body.setPosition(polygon, {x:250,y:300})
+		slingshot.attach(polygon.body)
+	}
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    Matter.Body.setPosition(polygon, {x:mouseX,y:mouseY})
 }
-
 
 function mouseReleased(){
     slingshot.fly();
 }
-
-function keyPressed(){
-   if (keyCode == 32) {
-       slingshot.attach(bird.body)
-       
-   }
-}
-
-
-
-
-
-
