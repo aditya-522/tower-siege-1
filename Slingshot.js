@@ -7,7 +7,7 @@ class SlingShot{
             length: 10
         }
         this.pointB = pointB
-        this.sling = Constraint.create(options);
+        this.sling = Matter.Constraint.create(options);
         World.add(world, this.sling);
     }
 

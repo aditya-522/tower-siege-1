@@ -23,17 +23,17 @@ function setup() {
 
   stand1 = new Ground(500,500,350,15);
  
-  block2=new Box(400,470)
-  block3=new Box(450,470)
-  block4=new Box(500,470)
-  block5=new Box(550,470)
-  block6=new Box(600,470)
+  block2=new Box(400,470,50,50)
+  block3=new Box(450,470,50,50)
+  block4=new Box(500,470,50,50)
+  block5=new Box(550,470,50,50)
+  block6=new Box(600,470,50,50)
  
-  block9=new Box(450,420)
-  block10=new Box(500,420)
-  block11=new Box(550,420)
+  block9=new Box(450,420,50,50)
+  block10=new Box(500,420,50,50)
+  block11=new Box(550,420,50,50)
 
-  block12=new Box(500,370)
+  block12=new Box(500,370,50,50)
 
   polygon = Bodies.circle(50,200,40);
   World.add(world,polygon);
@@ -43,7 +43,7 @@ function setup() {
 }
 function draw() {
   background(220);  
-  
+  Engine.update(engine);
   ground.display()
 
   stand1.display()
